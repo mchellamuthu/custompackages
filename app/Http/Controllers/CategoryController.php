@@ -38,8 +38,7 @@ class CategoryController extends Controller
         Auditor::log(
             action: 'created',
             resource: $category,
-            new_values: $category,
-
+            new_values: $category->getRawOriginal(),
         );
 
         return response()->json(['msg' => 'created']);
@@ -53,6 +52,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        Auditor::log(
+            action: 'retrieved',
+            resource: $this,
+        );
         return response()->json(['data' => $category]);
     }
 
@@ -70,8 +73,15 @@ class CategoryController extends Controller
         ]);
 
         $category->name = $request->name;
-        $category->save();
-
+        if ($category->isDirty()) {
+            $category->save();
+            Auditor::log(
+                action: 'updated',
+                resource: $category,
+                new_values: $category->getRawOriginal(),
+                old_values: $category->getChanges(),
+            );
+        }
         return response()->json(['msg' => 'updated']);
     }
 
@@ -83,7 +93,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        if ($category->delete()) {
+
+            Auditor::log(
+                action: 'deleted',
+                resource: $category,
+                old_values: $category->getOriginal(),
+            );
+        }
+
         return response()->json(['msg' => 'deleted']);
     }
 }

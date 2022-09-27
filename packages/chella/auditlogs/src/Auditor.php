@@ -11,8 +11,8 @@ class Auditor
         string $message = null,
         object $resource = null,
         int $resource_id = null,
-        object $old_values = null,
-        object $new_values = null,
+        array $old_values = null,
+        array $new_values = null,
     ) {
 
 
