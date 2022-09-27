@@ -3,12 +3,14 @@
 namespace Chella\Auditlogs\Listeners;
 
 use Chella\Auditlogs\Events\AuditLogEvent;
-use Chella\AuditLogs\Models\AuditLog;
+use Chella\Auditlogs\Models\AuditLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 class AuditLogListener implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      *

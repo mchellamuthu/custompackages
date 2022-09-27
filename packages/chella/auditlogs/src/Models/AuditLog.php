@@ -1,15 +1,13 @@
 <?php
 
-namespace Chella\AuditLogs\Models;
+namespace Chella\Auditlogs\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
+
 
 class AuditLog extends Model
 {
-    protected $connection = config('auditlog.database_connection');
+    // protected $incrementing  =false;
+    protected $connection = 'mongodb';
     protected $guarded = [];
-    protected $casts = [
-        'old_values'   => 'json',
-        'new_values'   => 'json',
-    ];
 }

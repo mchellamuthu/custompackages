@@ -43,7 +43,7 @@ class AuditLogServiceProvider extends ServiceProvider
 
             if (!class_exists('CreateAuditLogsTable')) {
                 $this->publishes([
-                    __DIR__ . '/../database/migrations/audits.stub' => database_path(
+                    __DIR__ . '/../database/migrations/auditlogs.stub' => database_path(
                         sprintf('migrations/%s_create_audit_logs_table.php', date('Y_m_d_His'))
                     ),
                 ], 'migrations');
