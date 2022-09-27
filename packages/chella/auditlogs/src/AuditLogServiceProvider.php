@@ -2,8 +2,8 @@
 
 namespace Chella\AuditLogs;
 
-use Illuminate\Support\ServiceProvider;
 use Chella\Auditlogs\AuditLogEventServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class AuditLogServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,6 @@ class AuditLogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->app->register(AuditLogEventServiceProvider::class);
     }
 
@@ -26,7 +25,7 @@ class AuditLogServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPublishing();
-        $this->mergeConfigFrom(__DIR__ . '/../config/auditlog.php', 'auditlog');
+        $this->mergeConfigFrom(__DIR__.'/../config/auditlog.php', 'auditlog');
     }
 
     /**
@@ -38,17 +37,16 @@ class AuditLogServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/auditlog.php' => base_path('config/auditlog.php'),
+                __DIR__.'/../config/auditlog.php' => base_path('config/auditlog.php'),
             ], 'config');
 
-            if (!class_exists('CreateAuditLogsTable')) {
+            if (! class_exists('CreateAuditLogsTable')) {
                 $this->publishes([
-                    __DIR__ . '/../database/migrations/auditlogs.stub' => database_path(
+                    __DIR__.'/../database/migrations/auditlogs.stub' => database_path(
                         sprintf('migrations/%s_create_audit_logs_table.php', date('Y_m_d_His'))
                     ),
                 ], 'migrations');
             }
         }
     }
-
 }

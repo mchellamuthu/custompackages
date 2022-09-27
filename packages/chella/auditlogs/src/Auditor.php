@@ -8,14 +8,12 @@ class Auditor
 {
     public static function log(
         string $action,
-        string $message = null,
-        object $resource = null,
-        int $resource_id = null,
-        array $old_values = null,
-        array $new_values = null,
+        ?string $message,
+        ?object $resource,
+        ?int $resource_id,
+        ?array $old_values,
+        ?array $new_values,
     ) {
-
-
         AuditLogEvent::dispatch([
             'action' => $action,
             'resource' => get_class($resource) ?? null,

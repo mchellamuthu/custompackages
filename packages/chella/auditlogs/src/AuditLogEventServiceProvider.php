@@ -11,7 +11,7 @@ class AuditLogEventServiceProvider extends ServiceProvider
     protected $listen = [
         AuditLogEvent::class => [
             AuditLogListener::class,
-        ]
+        ],
     ];
 
     /**

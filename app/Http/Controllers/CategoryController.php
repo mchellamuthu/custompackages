@@ -16,6 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::get();
+
         return response()->json(['data' => $categories]);
     }
 
@@ -28,11 +29,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
-        $category =  Category::create([
-            'name' => $request->name
+        $category = Category::create([
+            'name' => $request->name,
         ]);
 
         Auditor::log(
@@ -57,6 +58,7 @@ class CategoryController extends Controller
             action: 'retrieved',
             resource: $this,
         );
+
         return response()->json(['data' => $category]);
     }
 
@@ -70,7 +72,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|max:255',
         ]);
 
         $category->name = $request->name;
@@ -83,6 +85,7 @@ class CategoryController extends Controller
                 old_values: $category->getChanges(),
             );
         }
+
         return response()->json(['msg' => 'updated']);
     }
 
@@ -95,7 +98,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->delete()) {
-
             Auditor::log(
                 action: 'deleted',
                 resource: $category,
