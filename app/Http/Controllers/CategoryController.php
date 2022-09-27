@@ -52,6 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        // return response()->json(config('auditlog.database_connection'));
         Auditor::log(
             action: 'retrieved',
             resource: $this,
