@@ -1,0 +1,29 @@
+{
+    "name": "chella/auditlogs",
+    "description": "Audit Logs for laravel applications",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Chella\\Auditlogs\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Chella",
+            "email": "mchellamuthu@live.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Chella\\Auditlogs\\AuditLogServiceProvider"
+            ]
+        }
+    },
+
+    "require": {
+        "laravel/framework": "^9.19",
+        "jenssegers/mongodb": "^3.9"
+    }
+}
