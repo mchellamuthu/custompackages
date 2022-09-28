@@ -36,6 +36,7 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
         AuditModelEvents::created($category);
+
         return response()->json(['msg' => 'created']);
     }
 
@@ -67,6 +68,7 @@ class CategoryController extends Controller
             $category->save();
             AuditModelEvents::updated($category);
         }
+
         return response()->json(['msg' => 'updated']);
     }
 
@@ -81,6 +83,7 @@ class CategoryController extends Controller
         if ($category->delete()) {
             AuditModelEvents::deleted($category);
         }
+
         return response()->json(['msg' => 'deleted']);
     }
 }
