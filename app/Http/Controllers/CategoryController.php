@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Chella\Auditlogs\Auditor;
+use Chella\Auditlogs\AuditModelEvents;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -35,13 +35,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name' => $request->name,
         ]);
-
-        Auditor::log(
-            action: 'created',
-            resource: $category,
-            newValues: $category->getRawOriginal(),
-        );
-
+        AuditModelEvents::created($category);
         return response()->json(['msg' => 'created']);
     }
 
@@ -53,12 +47,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // return response()->json(config('auditlog.database_connection'));
-        Auditor::log(
-            action: 'retrieved',
-            resource: $this,
-        );
-
         return response()->json(['data' => $category]);
     }
 
@@ -74,18 +62,11 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-
         $category->name = $request->name;
         if ($category->isDirty()) {
             $category->save();
-            Auditor::log(
-                action: 'updated',
-                resource: $category,
-                newValues: $category->getRawOriginal(),
-                oldValues: $category->getChanges(),
-            );
+            AuditModelEvents::updated($category);
         }
-
         return response()->json(['msg' => 'updated']);
     }
 
@@ -98,13 +79,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->delete()) {
-            Auditor::log(
-                action: 'deleted',
-                resource: $category,
-                oldValues: $category->getOriginal(),
-            );
+            AuditModelEvents::deleted($category);
         }
-
         return response()->json(['msg' => 'deleted']);
     }
 }
