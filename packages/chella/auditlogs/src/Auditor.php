@@ -10,16 +10,15 @@ class Auditor
         string $action,
         ?string $message,
         ?object $resource,
-        ?int $resource_id,
-        ?array $old_values,
-        ?array $new_values,
+        ?array $oldValues,
+        ?array $newValues,
     ) {
         AuditLogEvent::dispatch([
             'action' => $action,
             'resource' => get_class($resource) ?? null,
             'resource_id' => $resource?->id ?? null,
-            'old_values' => $old_values,
-            'new_values' => $new_values,
+            'old_values' => $oldValues,
+            'new_values' => $newValues,
             'user_id' => auth()->id() ?? null,
             'message' => $message ?? null,
         ]);

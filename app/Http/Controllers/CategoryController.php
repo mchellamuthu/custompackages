@@ -39,7 +39,7 @@ class CategoryController extends Controller
         Auditor::log(
             action: 'created',
             resource: $category,
-            new_values: $category->getRawOriginal(),
+            newValues: $category->getRawOriginal(),
         );
 
         return response()->json(['msg' => 'created']);
@@ -81,8 +81,8 @@ class CategoryController extends Controller
             Auditor::log(
                 action: 'updated',
                 resource: $category,
-                new_values: $category->getRawOriginal(),
-                old_values: $category->getChanges(),
+                newValues: $category->getRawOriginal(),
+                oldValues: $category->getChanges(),
             );
         }
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
             Auditor::log(
                 action: 'deleted',
                 resource: $category,
-                old_values: $category->getOriginal(),
+                oldValues: $category->getOriginal(),
             );
         }
 
