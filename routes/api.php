@@ -22,4 +22,8 @@ Route::post('/login', \App\Http\Controllers\LoginController::class);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('index');
+        Route::get('/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('show');
+    });
 });
